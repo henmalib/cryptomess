@@ -1,11 +1,11 @@
-messenger.localhost {
+cryptomess.localhost {
     reverse_proxy web:3000
 }
 
-api.messenger.localhost {
+api.cryptomess.localhost {
     reverse_proxy api:3000
 }
 
-admin.messenger.localhost {
+admin.cryptomess.localhost {
     reverse_proxy dbeaver:8978
 }
