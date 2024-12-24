@@ -1,0 +1,50 @@
+services:
+  api:
+    build: ./server
+    depends_on:
+      postgres:
+        condition: service_started
+        restart: true
+    environment:
+      PORT: 3000
+      JWT_SECRET: fhsjdkhfskdjhfksjdhfksdjh
+    volumes:
+      - ./server:/app
+  web:
+    build: ./client
+    volumes:
+      - ./client:/app
+
+  postgres:
+    image: postgres:17.2-alpine
+    restart: unless-stopped
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: hen
+      POSTGRES_PASSWORD: verysecure
+      POSTGRES_DB: messenger
+    volumes:
+      - ./.docker-data/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  dbeaver:
+    image: dbeaver/cloudbeaver:24.3.0
+    restart: unless-stopped
+    logging:
+      driver: none
+    volumes:
+      - ./.docker-data/dbeaver:/opt/cloudbeaver/workspace
+
+  caddy:
+    image: caddy:2.8.4-alpine
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    volumes:
+      -  ./Caddyfile:/etc/caddy/Caddyfile
+      - ./.docker-data/caddy:/data

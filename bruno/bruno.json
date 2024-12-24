@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Messenger",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

@@ -1,0 +1,22 @@
+meta {
+  name: Register
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://api.messenger.localhost/register
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "username": "en",
+    "password": "A123456a"
+  }
+}
